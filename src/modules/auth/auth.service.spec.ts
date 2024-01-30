@@ -21,21 +21,6 @@ const mockUser = {
     updated_at: new Date(),
 } as User;
 
-// const mockProfile = {
-//     id: '1',
-//     user_id: 'user-1',
-//     name: 'John Doe',
-//     age: 25,
-//     daily_swipe_count: 10,
-//     likes_count: 5,
-//     gender: 'male',
-//     bio: 'A brief bio about me.',
-//     image_url: 'https://example.com/avatar.jpg',
-//     is_verified: true,
-//     created_at: new Date(),
-//     updated_at: new Date(),
-// } as Profile;
-
 describe('AuthService', () => {
     let service: AuthService;
     let userRepositoryMock: jest.Mocked<Repository<User>>;
@@ -92,7 +77,7 @@ describe('AuthService', () => {
 
             expect(result.accessToken).toBeDefined();
             expect(jwtSignSpy).toHaveBeenCalledWith({
-                sub: mockUser.id,
+                id: mockUser.id,
                 email: mockUser.email,
             });
         });
