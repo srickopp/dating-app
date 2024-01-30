@@ -29,10 +29,10 @@ export class Profile {
     @Column({ default: 0 })
     daily_swipe_count: number;
 
-    @Column({ nullable: false })
+    @Column({ default: 0 })
     likes_count: number;
 
-    @Column({ nullable: false })
+    @Column({ default: 'male' })
     gender: string;
 
     @Column({ nullable: true })

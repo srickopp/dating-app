@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, Column } from 'typeorm';
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    CreateDateColumn,
+    UpdateDateColumn,
+    ManyToOne,
+    Column,
+} from 'typeorm';
 import { Profile } from './profile.entity';
 import { PremiumPackage } from './premium-package.entity';
 
