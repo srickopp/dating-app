@@ -16,12 +16,26 @@ export class ProfileController {
 
     @UseGuards(JwtAuthGuard)
     @Get('/')
-    async viewProfile(@Req() req, @Res() res: Response): Promise<any> {
+    async viewProfile(@Req() req: any, @Res() res: Response): Promise<any> {
         const userId = req.user.id;
         try {
             const profile = await this.profileService.getProfile(userId);
             return res.status(HttpStatus.OK).send({
                 message: 'User Profile',
+                data: profile,
+            });
+        } catch (error) {
+            return { error: error.message };
+        }
+    }
+
+    @Get('/new-match')
+    async newMatchProfile(@Req() req: any, @Res() res: Response): Promise<any> {
+        const userId = req.user.id;
+        try {
+            const profile = await this.profileService.newMatchProfile(userId);
+            return res.status(HttpStatus.OK).send({
+                message: 'Get Match Profile',
                 data: profile,
             });
         } catch (error) {
