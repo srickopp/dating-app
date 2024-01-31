@@ -27,7 +27,7 @@ export class UserPremium {
     @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     end_date: Date;
 
-    @ManyToOne(() => Profile, (profile) => profile.premium)
+    @ManyToOne(() => Profile, (profile) => profile.premiums)
     @JoinColumn({ name: 'profile_id' })
     profile: Profile;
 

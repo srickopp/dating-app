@@ -13,8 +13,9 @@ export class ProfileService {
     async getProfile(userId: string): Promise<Profile> {
         const profile = await this.profileRepository.findOne({
             where: {
-                user_id: userId,
+                user_id: userId, // Access nested 'user' alias for comparison
             },
+            relations: ['premiums.package'],
         });
 
         if (!profile) {

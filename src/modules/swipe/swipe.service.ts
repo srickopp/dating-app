@@ -23,7 +23,9 @@ export class SwipeService {
             where: {
                 user_id: userId,
             },
+            relations: ['premium.package'],
         });
+        console.log(profile);
 
         if (!profile) {
             throw new NotFoundException('Profile not found');
