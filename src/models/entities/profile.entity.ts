@@ -61,5 +61,5 @@ export class Profile {
     swiped: Swipe[];
 
     @OneToMany(() => UserPremium, (userPremium) => userPremium.profile)
-    userPremiums: UserPremium[];
+    premium: UserPremium[];
 }

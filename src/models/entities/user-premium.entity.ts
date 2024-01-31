@@ -5,6 +5,7 @@ import {
     UpdateDateColumn,
     ManyToOne,
     Column,
+    JoinColumn,
 } from 'typeorm';
 import { Profile } from './profile.entity';
 import { PremiumPackage } from './premium-package.entity';
@@ -12,6 +13,9 @@ import { PremiumPackage } from './premium-package.entity';
 @Entity('user_premiums')
 export class UserPremium {
     @PrimaryGeneratedColumn('uuid')
+    id: string;
+
+    @Column({ nullable: false })
     profile_id: string;
 
     @Column({ nullable: false })
@@ -23,9 +27,11 @@ export class UserPremium {
     @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     end_date: Date;
 
-    @ManyToOne(() => Profile, (profile) => profile.userPremiums)
+    @ManyToOne(() => Profile, (profile) => profile.premium)
+    @JoinColumn({ name: 'profile_id' })
     profile: Profile;
 
     @ManyToOne(() => PremiumPackage, (p) => p.userPremiums)
+    @JoinColumn({ name: 'package_id' })
     package: PremiumPackage;
 }

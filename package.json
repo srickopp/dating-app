@@ -22,9 +22,11 @@
     "typeorm:migration:generate": "npm run typeorm migration:generate --name",
     "typeorm:migration:create": "npm run typeorm migration:create -- --name",
     "typeorm:migration:run": "npm run typeorm migration:run",
-    "typeorm:migration:revert": "npm run typeorm migration:revert"
+    "typeorm:migration:revert": "npm run typeorm migration:revert",
+    "data:seeder": "ts-node -r tsconfig-paths/register ./src/seeders/seed.helper.ts"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.4.0",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.0.0",
