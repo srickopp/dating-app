@@ -37,7 +37,7 @@ export class SwipeController {
         }
     }
 
-    @Post('/swipe')
+    @Post('/action')
     async swipeProfile(
         @Req() req: any,
         @Res() res: Response,

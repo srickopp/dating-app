@@ -195,6 +195,7 @@ export class SwipeService {
         userIds: string[],
         genderPreference: string,
     ): Promise<Profile | null> {
+        console.log(userIds, genderPreference);
         const randomProfile = await this.profileRepository
             .createQueryBuilder('profile')
             .where('profile.gender = :gender', { gender: genderPreference })
