@@ -28,18 +28,4 @@ export class ProfileController {
             return { error: error.message };
         }
     }
-
-    @Get('/new-match')
-    async newMatchProfile(@Req() req: any, @Res() res: Response): Promise<any> {
-        const userId = req.user.id;
-        try {
-            const profile = await this.profileService.newMatchProfile(userId);
-            return res.status(HttpStatus.OK).send({
-                message: 'Get Match Profile',
-                data: profile,
-            });
-        } catch (error) {
-            return { error: error.message };
-        }
-    }
 }
