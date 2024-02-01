@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PremiumPackage } from 'src/models/entities/premium-package.entity';
-import { UserPremium } from 'src/models/entities/user-premium.entity';
 import { Repository } from 'typeorm';
+import { PremiumPackage } from '../../models/entities/premium-package.entity';
+import { UserPremium } from '../../models/entities/user-premium.entity';
+import { Profile } from '../../models/entities/profile.entity';
 import { OrderPremiumPackageDto } from './dto/order-package.dto';
-import { Profile } from 'src/models/entities/profile.entity';
 
 @Injectable()
 export class PremiumPackageService {

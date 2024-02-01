@@ -18,5 +18,5 @@ export default <TypeOrmModuleOptions>{
     },
     autoLoadEntities: true,
     synchronize: false,
-    logging: true,
+    // logging: true,
 };
