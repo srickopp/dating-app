@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "17a23d0d-9508-4025-ba3f-16d56e56308f",
+		"name": "Dating App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3331384"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"ricko@gmail.com\",\n    \"password\": \"ricko123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyNDRhMTIzLTllNmMtNGY4ZC05NjczLTk0ZGNmYmFhZmQ1ZiIsImVtYWlsIjoicmlja29AZ21haWwuY29tIiwiaWF0IjoxNzA2NjkzNzgwLCJleHAiOjE3MDY3ODAxODB9.moLvEVviI-fYpEUS5PdXwAlQoIiq277hew9bpQB5QUU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/profile",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get New Match",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyNDRhMTIzLTllNmMtNGY4ZC05NjczLTk0ZGNmYmFhZmQ1ZiIsImVtYWlsIjoicmlja29AZ21haWwuY29tIiwiaWF0IjoxNzA2NjkzNzgwLCJleHAiOjE3MDY3ODAxODB9.moLvEVviI-fYpEUS5PdXwAlQoIiq277hew9bpQB5QUU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/swipe/new-match",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"swipe",
+						"new-match"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Swipe Action Like - Match",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1ZmJiZmQ1LTBmMDEtNDJjMy1iOTJjLWZiODQxY2RjMzY4OCIsImVtYWlsIjoicmlja29AZ21haWwuY29tIiwiaWF0IjoxNzA2NjkwNDU1LCJleHAiOjE3MDY3NzY4NTV9.aG7VUUwZud5-qkPOWa_vQlej22ztxWDTqb4Am8vDtFs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"swipedId\": \"150763af-b428-4792-9d52-7195711dea22\",\n    \"action\": \"like\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/swipe/action",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"swipe",
+						"action"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Swipe Action Pass",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1ZmJiZmQ1LTBmMDEtNDJjMy1iOTJjLWZiODQxY2RjMzY4OCIsImVtYWlsIjoicmlja29AZ21haWwuY29tIiwiaWF0IjoxNzA2NjkwNDU1LCJleHAiOjE3MDY3NzY4NTV9.aG7VUUwZud5-qkPOWa_vQlej22ztxWDTqb4Am8vDtFs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"swipedId\": \"5545bfc0-ba1c-4867-b161-e056679a338f\",\n    \"action\": \"pass\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/swipe/action",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"swipe",
+						"action"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Premium Package",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1ZmJiZmQ1LTBmMDEtNDJjMy1iOTJjLWZiODQxY2RjMzY4OCIsImVtYWlsIjoicmlja29AZ21haWwuY29tIiwiaWF0IjoxNzA2NjkwNDU1LCJleHAiOjE3MDY3NzY4NTV9.aG7VUUwZud5-qkPOWa_vQlej22ztxWDTqb4Am8vDtFs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/premium-package",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"premium-package"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"samuelricko\",\n  \"email\": \"ricko@gmail.com\",\n  \"password\": \"ricko123\",\n  \"name\": \"Samuel Ricko\",\n  \"age\": 25,\n  \"gender\": \"male\",\n  \"bio\": \"Hello, I'm John!\",\n  \"image_url\": \"https://example.com/profile.jpg\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/auth/register",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order Premium Package",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjcyNDRhMTIzLTllNmMtNGY4ZC05NjczLTk0ZGNmYmFhZmQ1ZiIsImVtYWlsIjoicmlja29AZ21haWwuY29tIiwiaWF0IjoxNzA2NjkzNzgwLCJleHAiOjE3MDY3ODAxODB9.moLvEVviI-fYpEUS5PdXwAlQoIiq277hew9bpQB5QUU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1ZmJiZmQ1LTBmMDEtNDJjMy1iOTJjLWZiODQxY2RjMzY4OCIsImVtYWlsIjoicmlja29AZ21haWwuY29tIiwiaWF0IjoxNzA2NjkwNDU1LCJleHAiOjE3MDY3NzY4NTV9.aG7VUUwZud5-qkPOWa_vQlej22ztxWDTqb4Am8vDtFs"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"package_id\": \"4c85377d-63dc-4ebf-93d2-fdc56dc5035a\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/premium-package/order",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"premium-package",
+						"order"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
