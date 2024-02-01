@@ -77,6 +77,59 @@ describe('SwipeService', () => {
 
             expect(result).toEqual(mockProfile);
         });
+
+        it('should throw BadRequestException if unlimited swipes not verified', async () => {
+            const mockProfile = {
+                user_id: 'userId',
+                daily_swipe_count: 5,
+                premiums: [
+                    {
+                        package: {
+                            name: 'verified_label_view',
+                        },
+                    },
+                ],
+            } as Profile;
+
+            jest.spyOn(profileRepository, 'findOne').mockResolvedValueOnce(
+                mockProfile,
+            );
+
+            jest.spyOn(
+                swipeService as any,
+                'getRandomProfile',
+            ).mockResolvedValueOnce(null);
+
+            await expect(
+                swipeService.getNewMatchProfile('userId'),
+            ).rejects.toThrow(NotFoundException);
+        });
+
+        it('should return a profile if conditions are met', async () => {
+            const mockProfile = {
+                user_id: 'userId',
+                daily_swipe_count: 11,
+                premiums: [
+                    {
+                        package: {
+                            name: 'unlimited_swipes',
+                        },
+                    },
+                ],
+            } as Profile;
+
+            jest.spyOn(profileRepository, 'findOne').mockResolvedValueOnce(
+                mockProfile,
+            );
+            jest.spyOn(
+                swipeService as any,
+                'getRandomProfile',
+            ).mockResolvedValueOnce(mockProfile);
+
+            const result = await swipeService.getNewMatchProfile('userId');
+
+            expect(result).toEqual(mockProfile);
+        });
     });
 
     describe('processSwipeAction', () => {

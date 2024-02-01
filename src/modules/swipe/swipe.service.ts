@@ -23,17 +23,24 @@ export class SwipeService {
             where: {
                 user_id: userId,
             },
-            relations: ['premium.package'],
+            relations: ['premiums.package'],
         });
-        console.log(profile);
+
+        const premiumsPackage = profile?.premiums || [];
+        const { isPremiumVerified, isUnlimitedSwiped } =
+            this.checkPremiums(premiumsPackage);
 
         if (!profile) {
             throw new NotFoundException('Profile not found');
         }
 
-        if (profile.daily_swipe_count >= 10) {
-            // User has reached the daily swipe limit
-            throw new BadRequestException("You've reached your daily limit");
+        if (!isUnlimitedSwiped) {
+            if (profile.daily_swipe_count >= 10) {
+                // User has reached the daily swipe limit
+                throw new BadRequestException(
+                    "You've reached your daily limit",
+                );
+            }
         }
 
         const userIds = [userId];
@@ -44,6 +51,7 @@ export class SwipeService {
             const randomProfile = await this.getRandomProfile(
                 userIds,
                 this.getGenderPreferences(profile.gender),
+                isPremiumVerified,
             );
 
             if (!randomProfile) {
@@ -99,46 +107,42 @@ export class SwipeService {
         swiperId: string,
         swipedId: string,
     ): Promise<{ message: string; profile: Profile; match_profile?: Profile }> {
-        try {
-            const [swiperProfile, swipedProfile] = await Promise.all([
-                this.profileRepository.findOne({
-                    where: { user_id: swiperId },
-                }),
-                this.profileRepository.findOne({ where: { id: swipedId } }),
-            ]);
+        const [swiperProfile, swipedProfile] = await Promise.all([
+            this.profileRepository.findOne({
+                where: { user_id: swiperId },
+            }),
+            this.profileRepository.findOne({ where: { id: swipedId } }),
+        ]);
 
-            if (!swiperProfile || !swipedProfile) {
-                throw new NotFoundException('Profiles not found');
-            }
-
-            // Check if the swiped profile has already liked the swiper profile
-            const isMatch = await this.swipeRepository.findOne({
-                where: {
-                    swiper_id: swipedId,
-                    swiped_id: swiperProfile.id,
-                    is_like: true,
-                },
-            });
-
-            // Save the like action
-            await this.createSwipe(swipedProfile.id, swipedId, true);
-            await this.updateSwipeCounts(swipedProfile, true);
-
-            if (isMatch) {
-                return {
-                    message: 'Matched!',
-                    profile: swiperProfile,
-                    match_profile: swipedProfile,
-                };
-            }
-
-            return {
-                message: 'Continue searching',
-                profile: swiperProfile,
-            };
-        } catch (error) {
-            throw error;
+        if (!swiperProfile || !swipedProfile) {
+            throw new NotFoundException('Profiles not found');
         }
+
+        // Check if the swiped profile has already liked the swiper profile
+        const isMatch = await this.swipeRepository.findOne({
+            where: {
+                swiper_id: swipedId,
+                swiped_id: swiperProfile.id,
+                is_like: true,
+            },
+        });
+
+        // Save the like action
+        await this.createSwipe(swipedProfile.id, swipedId, true);
+        await this.updateSwipeCounts(swipedProfile, true);
+
+        if (isMatch) {
+            return {
+                message: 'Matched!',
+                profile: swiperProfile,
+                match_profile: swipedProfile,
+            };
+        }
+
+        return {
+            message: 'Continue searching',
+            profile: swiperProfile,
+        };
     }
 
     async passProfile(swiperId: string, swipedId: string) {
@@ -196,12 +200,15 @@ export class SwipeService {
     private async getRandomProfile(
         userIds: string[],
         genderPreference: string,
+        isPremiumVerified: boolean,
     ): Promise<Profile | null> {
-        console.log(userIds, genderPreference);
         const randomProfile = await this.profileRepository
             .createQueryBuilder('profile')
             .where('profile.gender = :gender', { gender: genderPreference })
             .andWhere('profile.user_id NOT IN (:...userIds)', { userIds })
+            .andWhere('profile.is_verified = :isVerified', {
+                isVerified: isPremiumVerified,
+            })
             .orderBy('RANDOM()')
             .getOne();
 
@@ -213,5 +220,22 @@ export class SwipeService {
             return 'female';
         }
         return 'male';
+    }
+
+    checkPremiums(premiums) {
+        let isPremiumVerified = false;
+        let isUnlimitedSwiped = false;
+
+        for (const premium of premiums) {
+            if (premium.package) {
+                if (premium.package.name === 'verified_lable_view') {
+                    isPremiumVerified = true;
+                } else if (premium.package.name === 'unlimited_swipes') {
+                    isUnlimitedSwiped = true;
+                }
+            }
+        }
+
+        return { isPremiumVerified, isUnlimitedSwiped };
     }
 }
