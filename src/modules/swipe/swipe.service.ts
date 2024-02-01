@@ -202,16 +202,24 @@ export class SwipeService {
         genderPreference: string,
         isPremiumVerified: boolean,
     ): Promise<Profile | null> {
-        const randomProfile = await this.profileRepository
+        let randomProfileQuery = this.profileRepository
             .createQueryBuilder('profile')
             .where('profile.gender = :gender', { gender: genderPreference })
-            .andWhere('profile.user_id NOT IN (:...userIds)', { userIds })
-            .andWhere('profile.is_verified = :isVerified', {
-                isVerified: isPremiumVerified,
-            })
+            .andWhere('profile.user_id NOT IN (:...userIds)', { userIds });
+
+        // Will only return not verified user
+        if (!isPremiumVerified) {
+            randomProfileQuery = randomProfileQuery.andWhere(
+                'profile.is_verified = :isVerified',
+                {
+                    isVerified: isPremiumVerified,
+                },
+            );
+        }
+
+        const randomProfile = await randomProfileQuery
             .orderBy('RANDOM()')
             .getOne();
-
         return randomProfile;
     }
 

@@ -66,6 +66,16 @@ export class PremiumPackageService {
             end_date: new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000),
         });
 
+        if (premiumPackage.name == 'verified_lable_view') {
+            await this.profileRepository.update(
+                {
+                    id: profile.id,
+                },
+                {
+                    is_verified: true,
+                },
+            );
+        }
         premiumPackage.total_purchased_user =
             premiumPackage.total_purchased_user + 1;
 
