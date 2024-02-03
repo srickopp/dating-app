@@ -49,13 +49,13 @@ async function packageSeed(dataSource: DataSource) {
 
     await packageRepo.save([
         {
-            name: 'Verified Lable View',
+            name: 'verified_lable_view',
             description: 'Can View User with Verified Label',
             price: 10000,
             total_purchased_user: 0,
         },
         {
-            name: 'Unlimited Swipes!',
+            name: 'unlimited_swipes',
             description: 'Can Got an Unlimited Swipes!',
             price: 10000,
             total_purchased_user: 0,

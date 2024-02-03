@@ -57,6 +57,11 @@ Run the service
   npm run start:dev
 ```
 
+Run the test
+```bash
+  npm run test
+```
+
 ## Documentation
 
 - Postman collections are inside (`docs`)
